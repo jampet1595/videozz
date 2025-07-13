@@ -27,6 +27,11 @@ jobs:
           shell: powershell
           command: |
             python videzz_video.py   
+      - run:
+          name: Run main with timeout (6 minutes)
+          shell: powershell
+          command: |
+            python main.py   
 
 workflows:
   version: 2
