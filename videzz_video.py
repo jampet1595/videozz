@@ -55,7 +55,7 @@ def random_mouse_move(driver):
 import requests
 
 # URL chứa file .txt
-url = "https://raw.githubusercontent.com/talblubClouby96/videzz_video/refs/heads/main/links.txt"
+url = "https://raw.githubusercontent.com/anisidina29/earn/refs/heads/main/videzzz_link.txt"
 
 # Tải nội dung từ URL
 response = requests.get(url)
