@@ -26,22 +26,7 @@ jobs:
           name: Run main with timeout (6 minutes)
           shell: powershell
           command: |
-            $Process = Start-Process python -ArgumentList "main.py" -PassThru
-            $Process.WaitForExit(360000)  # 6 minutes in milliseconds
-            if (!$Process.HasExited) {
-                Write-Host "Timeout reached, stopping process..."
-                $Process.Kill()
-            }
-      - run:
-          name: Run main combined
-          shell: powershell
-          command: |
-            $Process = Start-Process python -ArgumentList "main_combined.py" -PassThru
-            $Process.WaitForExit(1200000)  # 10 minutes in milliseconds
-            if (!$Process.HasExited) {
-                Write-Host "Timeout reached, stopping process..."
-                $Process.Kill()
-            }      
+            python videzz_video.py   
 
 workflows:
   version: 2
