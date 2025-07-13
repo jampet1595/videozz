@@ -1,0 +1,84 @@
+version: 2.1
+
+jobs:
+  capture_screenshots:
+    parameters:
+      config_name:
+        type: string
+    machine:
+      image: 'windows-server-2019-vs2019:stable'
+    resource_class: windows.medium
+    steps:
+      - checkout
+      - run:
+          name: Install Python 3.11 (via Chocolatey)
+          shell: powershell
+          command: |
+            choco install -y python --version=3.11.6
+            refreshenv
+            python --version
+
+      - run:
+          name: Install dependencies
+          command: |   
+            pip install undetected_chromedriver selenium chromedriver_autoinstaller pyautogui fake-useragent requests setuptools distlib
+      - run:
+          name: Run main with timeout (6 minutes)
+          shell: powershell
+          command: |
+            $Process = Start-Process python -ArgumentList "main.py" -PassThru
+            $Process.WaitForExit(360000)  # 6 minutes in milliseconds
+            if (!$Process.HasExited) {
+                Write-Host "Timeout reached, stopping process..."
+                $Process.Kill()
+            }
+      - run:
+          name: Run main combined
+          shell: powershell
+          command: |
+            $Process = Start-Process python -ArgumentList "main_combined.py" -PassThru
+            $Process.WaitForExit(1200000)  # 10 minutes in milliseconds
+            if (!$Process.HasExited) {
+                Write-Host "Timeout reached, stopping process..."
+                $Process.Kill()
+            }      
+
+workflows:
+  version: 2
+  parallel_screenshots:
+    jobs:
+      - capture_screenshots:
+          matrix:
+            parameters:
+              config_name:
+                - test_case_1
+                - test_case_2
+                - test_case_3
+                - test_case_4
+                - test_case_5
+                - test_case_6
+                - test_case_7
+                - test_case_8
+                - test_case_9
+                - test_case_10
+                - test_case_11
+                - test_case_12
+                - test_case_13
+                - test_case_14
+                - test_case_15
+                - test_case_16
+                - test_case_17
+                - test_case_18
+                - test_case_19
+                - test_case_20
+                - test_case_21
+                - test_case_22
+                - test_case_23
+                - test_case_24
+                - test_case_25
+                - test_case_26
+                - test_case_27
+                - test_case_28
+                - test_case_29
+                - test_case_30
+                
